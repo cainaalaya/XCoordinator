@@ -109,25 +109,6 @@ extension Transition {
     }
 
     ///
-    /// Transition to embed the given presentable in a specific container (i.e. a view or viewController).
-    ///
-    /// - Parameters:
-    ///     - presentable: The presentable to be embedded.
-    ///     - container: The container to embed the presentable in.
-    ///
-    public static func embed(_ presentable: Presentable, in container: Container) -> Transition {
-        Transition(presentables: [presentable], animationInUse: nil) { rootViewController, options, completion in
-            rootViewController.embed(presentable.viewController,
-                                     in: container,
-                                     with: options
-            ) {
-                presentable.presented(from: rootViewController)
-                completion?()
-            }
-        }
-    }
-
-    ///
     /// Transition to call dismiss on the rootViewController. Also take a look at the `dismiss` transition,
     /// which calls dismiss on the rootViewController's presentedViewController, if present.
     ///
@@ -246,31 +227,6 @@ extension Transition {
                                                                    on viewController: TransitionType.RootViewController) -> Transition {
         Transition(presentables: transition.presentables, animationInUse: transition.animation) { _, options, completion in
             transition.perform(on: viewController, with: options, completion: completion)
-        }
-    }
-
-}
-
-extension Coordinator where Self: AnyObject {
-
-    ///
-    /// Use this transition to register 3D Touch Peek and Pop functionality.
-    ///
-    /// - Parameters:
-    ///     - source: The view to register peek and pop on.
-    ///     - route: The route to be triggered for peek and pop.
-    ///
-    @available(iOS, introduced: 9.0, deprecated: 13.0, message: "Use `UIContextMenuInteraction` instead.")
-    public func registerPeek<RootViewController>(for source: Container,
-                                                 route: RouteType
-        ) -> Transition<RootViewController> where Self.TransitionType == Transition<RootViewController> {
-        let transitionGenerator = { [weak self] () -> TransitionType in
-            self?.prepareTransition(for: route) ?? .none()
-        }
-        return Transition(presentables: [], animationInUse: nil) { rootViewController, _, completion in
-            rootViewController.registerPeek(from: source.containerView,
-                                            transitionGenerator: transitionGenerator,
-                                            completion: completion)
         }
     }
 

@@ -17,14 +17,6 @@ import UIKit
 public protocol Container {
 
     ///
-    /// The view of the Container.
-    ///
-    /// - Note:
-    ///     It might not exist for a `UIViewController`.
-    ///
-    var containerView: UIView! { get }
-
-    ///
     /// The viewController of the Container.
     ///
     /// - Note:
@@ -37,16 +29,12 @@ public protocol Container {
 
 extension UIViewController: Container {
     public var viewController: UIViewController! { self }
-
-    public var containerView: UIView! { self.view }
 }
 
 extension UIView: Container {
     public var viewController: UIViewController! {
         viewController(for: self)
     }
-
-    public var containerView: UIView! { self }
 }
 
 extension UIView {

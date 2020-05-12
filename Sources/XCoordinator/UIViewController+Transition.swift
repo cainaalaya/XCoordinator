@@ -69,32 +69,6 @@ extension UIViewController {
         dismissalViewController.dismiss(animated: options.animated, completion: completion)
     }
 
-    func embed(_ viewController: UIViewController,
-               in container: Container,
-               with options: TransitionOptions,
-               completion: PresentationHandler?) {
-        container.viewController.addChild(viewController)
-
-        viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        container.containerView.addSubview(viewController.view)
-
-        // swiftlint:disable force_unwrapping
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: container.containerView!, attribute: .leading, relatedBy: .equal,
-                               toItem: viewController.view, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: container.containerView!, attribute: .trailing, relatedBy: .equal,
-                               toItem: viewController.view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: container.containerView!, attribute: .top, relatedBy: .equal,
-                               toItem: viewController.view, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: container.containerView!, attribute: .bottom, relatedBy: .equal,
-                               toItem: viewController.view, attribute: .bottom, multiplier: 1, constant: 0)
-        ])
-        // swiftlint:enable force_unwrapping
-
-        viewController.didMove(toParent: container.viewController)
-
-        completion?()
-    }
 }
 
 extension Presentable where Self: UIViewController {
