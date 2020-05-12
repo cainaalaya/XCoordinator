@@ -76,17 +76,17 @@ extension UIViewController {
         container.viewController.addChild(viewController)
 
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        container.view.addSubview(viewController.view)
+        container.containerView.addSubview(viewController.view)
 
         // swiftlint:disable force_unwrapping
         NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: container.view!, attribute: .leading, relatedBy: .equal,
+            NSLayoutConstraint(item: container.containerView!, attribute: .leading, relatedBy: .equal,
                                toItem: viewController.view, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: container.view!, attribute: .trailing, relatedBy: .equal,
+            NSLayoutConstraint(item: container.containerView!, attribute: .trailing, relatedBy: .equal,
                                toItem: viewController.view, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: container.view!, attribute: .top, relatedBy: .equal,
+            NSLayoutConstraint(item: container.containerView!, attribute: .top, relatedBy: .equal,
                                toItem: viewController.view, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: container.view!, attribute: .bottom, relatedBy: .equal,
+            NSLayoutConstraint(item: container.containerView!, attribute: .bottom, relatedBy: .equal,
                                toItem: viewController.view, attribute: .bottom, multiplier: 1, constant: 0)
         ])
         // swiftlint:enable force_unwrapping
